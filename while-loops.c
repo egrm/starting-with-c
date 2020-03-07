@@ -5,9 +5,11 @@ int main() {
     int i = 0;
 
     while (i < 10) {
-        if (array[i] > 10) break;
+        if (array[i] > 10)
+            break;
 
-        if (array[i] >= 5) printf("%d\n", array[i]);
+        if (array[i] >= 5)
+            printf("%d\n", array[i]);
 
         i++;
     }

@@ -1,7 +1,8 @@
 #include <stdio.h>
 
 void print_big(int a) {
-    if (a > 10) printf("%d", a);
+    if (a > 10)
+        printf("%d", a);
 }
 
 int main() {

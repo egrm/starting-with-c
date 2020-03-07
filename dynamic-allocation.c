@@ -2,19 +2,19 @@
 #include <stdlib.h>
 
 typedef struct {
-  int x;
-  int y;
+    int x;
+    int y;
 } point;
 
 int main() {
-  point * mypoint = NULL;
+    point *mypoint = NULL;
 
-  mypoint = malloc(sizeof(point));
+    mypoint = malloc(sizeof(point));
 
-  mypoint->x = 10;
-  mypoint->y =5 ;
-  printf("mypoint coordinates: %d, %d\n", mypoint->x, mypoint->y);
+    mypoint->x = 10;
+    mypoint->y = 5;
+    printf("mypoint coordinates: %d, %d\n", mypoint->x, mypoint->y);
 
-  free(mypoint);
-  return 0;
+    free(mypoint);
+    return 0;
 }
