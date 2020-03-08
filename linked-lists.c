@@ -7,6 +7,10 @@ typedef struct node {
 } node_t;
 
 void print_list(node_t *head) {
+    if (head == NULL) {
+        printf("empty linked list");
+    }
+
     node_t *current = head;
 
     while (current != NULL) {
@@ -36,7 +40,14 @@ void prepend(node_t **head, int val) {
 }
 
 int remove_first(node_t **head) {
-    if ((*head) == NULL) return 0;
+    if (*head == NULL) return 0;
+
+    if ((*head)->next == NULL) {
+        int val = (*head)->val;
+        free(*head);
+        *head = NULL;
+        return val;
+    }
 
     node_t *new_head = (*head)->next;
     int val = (*head)->val;
@@ -48,18 +59,19 @@ int remove_first(node_t **head) {
     return val;
 }
 
-int remove_last(node_t *head) {
-    if (head == NULL) {
+int remove_last(node_t **head) {
+    if (*head == NULL) {
         return 0;
     }
 
-    if (head->next == NULL) {
-        int val = head->val;
-        free(head);
+    if ((*head)->next == NULL) {
+        int val = (*head)->val;
+        free(*head);
+        *head = NULL;
         return val;
     }
 
-    node_t *current = head;
+    node_t *current = (*head);
 
     while (current->next->next != NULL) {
         current = current->next;
@@ -76,11 +88,17 @@ int remove_last(node_t *head) {
     return val;
 }
 
-int remove_by_index(int index, node_t *head) {
+int remove_by_index(int index, node_t **head) {
     int current_index = 0;
-    node_t *current = head;
+    node_t *current = *head;
 
-    if (head == NULL || head->next == NULL) return 0;
+    if (*head == NULL) return 0;
+
+    if ((*head)->next == NULL) {
+        int val = (*head)->val;
+        *head = NULL;
+        return val;
+    }
 
     while (current_index != (index - 1) && current->next->next != NULL) {
         current_index++;
@@ -107,13 +125,19 @@ int main() {
     append(head, 4);
     append(head, 5);
 
-    int last = remove_last(head);
+    int last = remove_last(&head);
     printf("last: %d\n", last);
 
     int first = remove_first(&head);
     printf("first: %d\n", first);
 
-    int removed_by_index = remove_by_index(2, head);
+    int removed_by_index = remove_by_index(2, &head);
+    printf("removed_by_index: %d\n", removed_by_index);
+
+    removed_by_index = remove_by_index(2, &head);
+    printf("removed_by_index: %d\n", removed_by_index);
+
+    removed_by_index = remove_by_index(2, &head);
     printf("removed_by_index: %d\n", removed_by_index);
 
     print_list(head);
