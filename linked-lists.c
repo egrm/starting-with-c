@@ -35,10 +35,38 @@ void prepend(node_t **head, int val) {
     *head = new_node;
 }
 
-void pop(node_t **head) {
+void remove_first(node_t **head) {
     node_t *new_head = (*head)->next;
     free(*head);
     *head = new_head;
+}
+
+int remove_last(node_t *head) {
+    if (head == NULL) {
+        return 0;
+    }
+
+    if (head->next == NULL) {
+        int val = head->val;
+        free(head);
+        return val;
+    }
+
+    node_t *current = head;
+
+    while (current->next->next != NULL) {
+        current = current->next;
+    }
+
+    node_t *last = current->next;
+
+    int val = last->val;
+
+    current->next = NULL;
+
+    free(last);
+
+    return val;
 }
 
 int main() {
@@ -47,8 +75,13 @@ int main() {
 
     head->val = 2;
 
-    append(head, 1);
-    prepend(&head, 3);
+    prepend(&head, 1);
+    append(head, 3);
+    append(head, 4);
+    append(head, 5);
+
+    int last = remove_last(head);
+    printf("last: %d\n", last);
 
     print_list(head);
 
