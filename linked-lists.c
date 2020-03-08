@@ -35,10 +35,17 @@ void prepend(node_t **head, int val) {
     *head = new_node;
 }
 
-void remove_first(node_t **head) {
+int remove_first(node_t **head) {
+    if ((*head) == NULL) return 0;
+
     node_t *new_head = (*head)->next;
+    int val = (*head)->val;
+
     free(*head);
+
     *head = new_head;
+
+    return val;
 }
 
 int remove_last(node_t *head) {
@@ -82,6 +89,9 @@ int main() {
 
     int last = remove_last(head);
     printf("last: %d\n", last);
+
+    int first = remove_first(&head);
+    printf("first: %d\n", first);
 
     print_list(head);
 
