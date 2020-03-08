@@ -4,7 +4,7 @@
 typedef struct node {
     int val;
     struct node *next;
-} t_node;
+} node_t;
 
 void print_list(node_t *head) {
     node_t *current = head;
@@ -36,7 +36,7 @@ void prepend(node_t **head, int val) {
 }
 
 void pop(node_t **head) {
-    t_node new_head = (*head)->next;
+    node_t *new_head = (*head)->next;
     free(*head);
     *head = new_head;
 }
@@ -45,14 +45,10 @@ int main() {
     // 3 -> 2 -> 1
     node_t *head = (node_t *)malloc(sizeof(node_t));
 
-    head->val = 3;
-    head->next = (node_t *)malloc(sizeof(node_t));
+    head->val = 2;
 
-    head->next->val = 2;
-    head->next->next = (node_t *)malloc(sizeof(node_t));
-
-    head->next->next->val = 1;
-    head->next->next->next = NULL;
+    append(head, 1);
+    prepend(&head, 3);
 
     print_list(head);
 
