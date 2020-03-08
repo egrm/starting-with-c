@@ -114,6 +114,28 @@ int remove_by_index(int index, node_t **head) {
     return val;
 }
 
+void remove_by_value(int remval, node_t **head) {
+    if (*head == NULL) return;
+
+    if ((*head)->val == remval) {
+        remove_first(head);
+        return;
+    }
+
+    if ((*head)->next == NULL) return;
+
+    node_t *current = *head;
+
+    while (current->next->val != remval) {
+        if (current->next->next == NULL) return;
+
+        current = current->next;
+    }
+
+    free(current->next);
+    current->next = current->next->next;
+}
+
 int main() {
     // 3 -> 2 -> 1
     node_t *head = (node_t *)malloc(sizeof(node_t));
