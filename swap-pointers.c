@@ -17,14 +17,12 @@ void value_swap(int *pa, int *pb) {
 }
 
 void pointer_swap(int **pa, int **pb) {
-    int *temp = malloc(sizeof(*int));
+    int *temp;
 
     temp = *pa;
 
     *pa = *pb;
     *pb = temp;
-
-    free(*temp);
 }
 
 int main() {
