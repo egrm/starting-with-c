@@ -40,7 +40,7 @@ void prepend(node_t **head, int val) {
 }
 
 int remove_first(node_t **head) {
-    if (*head == NULL) return 0;
+    if (*head == NULL) return -1;
 
     if ((*head)->next == NULL) {
         int val = (*head)->val;
@@ -61,15 +61,10 @@ int remove_first(node_t **head) {
 
 int remove_last(node_t **head) {
     if (*head == NULL) {
-        return 0;
+        return -1;
     }
 
-    if ((*head)->next == NULL) {
-        int val = (*head)->val;
-        free(*head);
-        *head = NULL;
-        return val;
-    }
+    if ((*head)->next == NULL) remove_first(head);
 
     node_t *current = (*head);
 
@@ -92,13 +87,7 @@ int remove_by_index(int index, node_t **head) {
     int current_index = 0;
     node_t *current = *head;
 
-    if (*head == NULL) return 0;
-
-    if ((*head)->next == NULL) {
-        int val = (*head)->val;
-        *head = NULL;
-        return val;
-    }
+    if (index == 0) return remove_first(head);
 
     while (current_index != (index - 1) && current->next->next != NULL) {
         current_index++;
@@ -156,11 +145,8 @@ int main() {
     int removed_by_index = remove_by_index(2, &head);
     printf("removed_by_index: %d\n", removed_by_index);
 
-    removed_by_index = remove_by_index(2, &head);
-    printf("removed_by_index: %d\n", removed_by_index);
-
-    removed_by_index = remove_by_index(2, &head);
-    printf("removed_by_index: %d\n", removed_by_index);
+    remove_by_value(3, &head);
+    remove_by_value(5, &head);
 
     print_list(head);
 
