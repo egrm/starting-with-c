@@ -76,6 +76,26 @@ int remove_last(node_t *head) {
     return val;
 }
 
+int remove_by_index(int index, node_t *head) {
+    int current_index = 0;
+    node_t *current = head;
+
+    if (head == NULL || head->next == NULL) return 0;
+
+    while (current_index != (index - 1) && current->next->next != NULL) {
+        current_index++;
+        current = current->next;
+    }
+
+    int val = current->next->val;
+
+    free(current->next);
+
+    current->next = current->next->next;
+
+    return val;
+}
+
 int main() {
     // 3 -> 2 -> 1
     node_t *head = (node_t *)malloc(sizeof(node_t));
@@ -92,6 +112,9 @@ int main() {
 
     int first = remove_first(&head);
     printf("first: %d\n", first);
+
+    int removed_by_index = remove_by_index(2, head);
+    printf("removed_by_index: %d\n", removed_by_index);
 
     print_list(head);
 
